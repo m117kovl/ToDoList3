@@ -7,7 +7,8 @@
              x:DataType="local:MainViewModel">
     <StackLayout>
         <Entry x:Name="NewChallange" ClearButtonVisibility="WhileEditing" Placeholder="Новая задача" />
-        <Button Text="Добавить" Command="{Binding CreateTaskCommand}"
+
+        <Button Text="Добавить" Command="{Binding AddCommand}"
                 CommandParameter="{Binding Source={x:Reference Name=NewChallange}, Path=Text}" Padding="10"
                 CornerRadius="50" WidthRequest="100"
                 BackgroundColor="#009933" VerticalOptions="Center" HorizontalOptions="Center" />
@@ -15,7 +16,20 @@
         <ListView ItemsSource="{Binding TaskList}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Task">
-                    <Label Text="{Binding}" />
+                    <ViewCell>
+                        <ViewCell.View>
+                                <Grid ColumnDefinitions="*, 8*, *">
+                                    <CheckBox Grid.Column="0"  IsChecked="{Binding IsComplete}" />
+                                    <Label Grid.Column="1" Padding="5" Margin="0" FontSize="25" Text="{Binding Name}" />
+                                    <Button Grid.Column="2" HeightRequest="30" Margin="5" CornerRadius="5" Padding="0" WidthRequest="30" Text="х"
+                                            BackgroundColor="DarkRed" 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}}, Path=DeleteCommand}"
+                                            CommandParameter="{Binding .}" />
+
+                                </Grid>
+
+                        </ViewCell.View>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
