@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoList3;assembly=ToDoList3"
+             x:Class="ToDoList3.MainPage"
+             x:DataType="local:MainViewModel">
+    <StackLayout>
+        <Entry x:Name="NewChallange" ClearButtonVisibility="WhileEditing" Placeholder="Новая задача" />
+        <Button Text="Добавить" Command="{Binding CreateTaskCommand}"
+                CommandParameter="{Binding Source={x:Reference Name=NewChallange}, Path=Text}" Padding="10"
+                CornerRadius="50" WidthRequest="100"
+                BackgroundColor="#009933" VerticalOptions="Center" HorizontalOptions="Center" />
+
+        <ListView ItemsSource="{Binding TaskList}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Task">
+                    <Label Text="{Binding}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
